@@ -1,5 +1,6 @@
 import threading
 import time
+import tkinter
 
 import YouTubeMP3
 
@@ -17,6 +18,7 @@ class App():
 
         self.window = Tk()
         self.window.title('YouTubeToMP3')
+        self.window.iconphoto(True, tkinter.PhotoImage(file='img/youtube.png'))
 
         # Окно
         screenwidth = self.window.winfo_screenwidth()
