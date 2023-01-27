@@ -15,6 +15,20 @@ class YouTubeMP3():
         self.output_path_mp4 = output_path + '/mp4'
         self.url = url
 
+    def DownloadAndSaveToMP3(self):
+        if self.output_path_mp3 == '' or self.url == '':
+            return
+
+
+        yt = YouTube(self.url)
+        bestaudiostream = yt.streams.get_highest_resolution() # Выбрать максимум 1080
+        print(bestaudiostream)
+        self.output_mp4_file = bestaudiostream.download(output_path=self.output_path_mp3)
+
+        self.output_path_mp3 = ''
+        self.output_path_mp4 = ''
+        self.url = ''
+
     def DownloadAndConvert(self):
         if self.output_path_mp3 == '' or self.url == '':
             return

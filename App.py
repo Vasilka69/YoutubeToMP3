@@ -33,7 +33,7 @@ class App():
         self.framepath = Frame(self.window)
         self.framepath.pack(fill=X, pady=45)
 
-        self.labelpath = Label(self.framepath, text='Path', font=('Consolas', 14))
+        self.labelpath = Label(self.framepath, text='Path to save', font=('Consolas', 14))
         self.labelpath.pack(padx=70)
 
         self.entrypath = Entry(self.framepath, font=('Consolas', 10))
@@ -63,12 +63,12 @@ class App():
 
         self.frameconvert = Frame(self.window)
         self.frameconvert.pack(fill=X)
-
-        self.labelconvert = Label(self.frameconvert, text='Converting', font=('Consolas', 14))
-        self.labelconvert.pack(padx=70)
-
-        self.progressbarconvert = Progressbar(self.frameconvert, length=100, mode='determinate')
-        self.progressbarconvert.pack(ipadx=30)
+        #
+        # self.labelconvert = Label(self.frameconvert, text='Converting', font=('Consolas', 14))
+        # self.labelconvert.pack(padx=70)
+        #
+        # self.progressbarconvert = Progressbar(self.frameconvert, length=100, mode='determinate')
+        # self.progressbarconvert.pack(ipadx=30)
 
         self.startbtn = Button(self.frameconvert, text='Start', font=('Consolas', 14), command=self.Start)
         self.startbtn.pack(pady=20, padx=width/4)
@@ -77,7 +77,7 @@ class App():
 
     def Start(self):
         self.progressbardwnload['value'] = 0
-        self.progressbarconvert['value'] = 0
+        # self.progressbarconvert['value'] = 0
         output_path = self.entrypath.get()
         url = self.entryurl.get()
         self.ytmp3.SetPathAndURL(output_path, url)
@@ -95,10 +95,12 @@ class App():
         #
         # threading.Thread(target=self.ytmp3.DownloadAndConvert()).start()
         print('Пошло поехало')
-        threading.Thread(target=self.ytmp3.DownloadAndConvert).start()
+        # threading.Thread(target=self.ytmp3.DownloadAndConvert).start()
+        # self.ytmp3.DownloadAndConvert()
+        self.ytmp3.DownloadAndSaveToMP3()
         print('Прошло проехало')
         self.progressbardwnload['value'] = 100
-        self.progressbarconvert['value'] = 100
+        # self.progressbarconvert['value'] = 100
         # for i in range(100):
         #     self.progressbardwnload['value'] = i
         #     time.sleep(0.05)
