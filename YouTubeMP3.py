@@ -1,6 +1,7 @@
-
 from pytube import YouTube
 from moviepy.editor import *
+
+import os
 
 class YouTubeMP3():
     output_path_mp3 = ''
@@ -27,6 +28,15 @@ class YouTubeMP3():
         bestaudiostream = yt.streams.get_audio_only()
         print(bestaudiostream)
         self.output_mp4_file = bestaudiostream.download(output_path=self.output_path_mp3)
+        print(self.output_mp4_file)
+        print(self.output_mp4_file.split('.'))
+        temp = self.output_mp4_file.split('.')
+        newpath = ''
+        for i in range(0, len(temp) - 1):
+            newpath += temp[i] + '.'
+        newpath += 'mp3'
+        print(newpath)
+        os.rename(self.output_mp4_file, newpath)
 
         self.output_path_mp3 = ''
         self.output_path_mp4 = ''
