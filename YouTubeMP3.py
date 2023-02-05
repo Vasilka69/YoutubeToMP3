@@ -65,7 +65,6 @@ class YouTubeMP3():
         self.output_mp4_file = self.output_path_mp3 + '/mp4/' + split[len(split) - 1]
         self.output_mp3_file = self.output_path_mp3 + '\\' + split[len(split) - 1].split('.')[0] + '.mp3'
 
-
     def ConvertToMP3(self):
         videoclip = VideoFileClip(self.output_mp4_file)
         audioclip = videoclip.audio

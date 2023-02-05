@@ -7,22 +7,13 @@ import YouTubeMP3
 from tkinter import *
 from tkinter.ttk import Progressbar
 
+import sys
 
 class App():
     output_path = ''
     url = ''
 
-
-    def _onKeyRelease(self, event):
-        ctrl = (event.state & 0x4) != 0
-        if event.keycode == 88 and ctrl and event.keysym.lower() != "x":
-            event.widget.event_generate("<<Cut>>")
-
-        if event.keycode == 86 and ctrl and event.keysym.lower() != "v":
-            event.widget.event_generate("<<Paste>>")
-
-        if event.keycode == 67 and ctrl and event.keysym.lower() != "c":
-            event.widget.event_generate("<<Copy>>")
+    output_log = ''
 
     def __init__(self, ytmp3: YouTubeMP3.YouTubeMP3):
         self.ytmp3 = ytmp3
@@ -30,6 +21,11 @@ class App():
         self.window = Tk()
         self.window.title('YouTubeToMP3')
         self.window.iconphoto(True, tkinter.PhotoImage(file='img/youtube.png'))
+
+        # Вывод для moviepy
+        self.output_log = open("output_log.txt", "wt")
+        sys.stdout = self.output_log
+        sys.stderr = self.output_log
 
         # Окно
         screenwidth = self.window.winfo_screenwidth()
@@ -92,6 +88,7 @@ class App():
         self.startbtn.pack(pady=20, padx=width/4)
 
         self.window.bind_all('<Key>', self._onKeyRelease, '+')
+        self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.window.mainloop()
 
     def Start(self):
@@ -138,5 +135,20 @@ class App():
         #     time.sleep(0.05)
         # self.ytmp3.DownloadAndConvert()
 
+    def _onKeyRelease(self, event):
+        ctrl = (event.state & 0x4) != 0
+        if event.keycode == 88 and ctrl and event.keysym.lower() != "x":
+            event.widget.event_generate("<<Cut>>")
+
+        if event.keycode == 86 and ctrl and event.keysym.lower() != "v":
+            event.widget.event_generate("<<Paste>>")
+
+        if event.keycode == 67 and ctrl and event.keysym.lower() != "c":
+            event.widget.event_generate("<<Copy>>")
+
+
+    def on_closing(self):
+        self.output_log.close()
+        self.window.destroy()
 
 
