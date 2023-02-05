@@ -124,7 +124,8 @@ class App():
         # threading.Thread(target=self.ytmp3.DownloadAndConvert).start()
         # self.ytmp3.DownloadAndConvert()
         # self.ytmp3.DownloadAndSaveToMP3(self.progressbardwnload)
-        threading.Thread(target=self.ytmp3.DownloadAndSaveToMP3(self.progressbardwnload)).start()
+        #threading.Thread(target=self.ytmp3.DownloadAndSaveToMP3(self.progressbardwnload)).start()
+        threading.Thread(target=self.ytmp3.DownloadAndConvert()).start()
 
         print('Прошло проехало')
         # self.progressbardwnload['value'] = 100
