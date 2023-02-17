@@ -8,6 +8,7 @@ from tkinter import *
 from tkinter.ttk import Progressbar
 
 import sys
+import os
 
 class App():
     output_path = ''
@@ -125,6 +126,11 @@ class App():
         threading.Thread(target=self.ytmp3.DownloadAndConvert()).start()
 
         print('Прошло проехало')
+
+        # os.startfile(self.ytmp3.output_path_mp3)
+        os.startfile(output_path)
+        # os.startfile('C:\\Users\\Vasili4\\Desktop\\1.Для добавки')
+        # print(self.ytmp3.output_path_mp3)
         # self.progressbardwnload['value'] = 100
         # self.progressbarconvert['value'] = 100
         # for i in range(100):
