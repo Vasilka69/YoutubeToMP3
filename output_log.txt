@@ -1,5 +1,0 @@
-Пошло поехало
-<Stream: itag="22" mime_type="video/mp4" res="720p" fps="6fps" vcodec="avc1.64001F" acodec="mp4a.40.2" progressive="True" type="video">
-MoviePy - Writing audio in C:\Users\Vasili4\Desktop\1.Для добавки\[FREE] yeat x destroy lonely type beat - race.mp3
-chunk:   0%|          | 0/2096 [00:00<?, ?it/s, now=None]chunk:   6%|6         | 129/2096 [00:00<00:01, 1283.05it/s, now=None]chunk:  16%|#5        | 326/2096 [00:00<00:01, 1677.55it/s, now=None]chunk:  25%|##5       | 533/2096 [00:00<00:00, 1847.87it/s, now=None]chunk:  35%|###4      | 725/2096 [00:00<00:00, 1872.13it/s, now=None]chunk:  44%|####3     | 918/2096 [00:00<00:00, 1890.02it/s, now=None]chunk:  54%|#####3    | 1122/2096 [00:00<00:00, 1934.35it/s, now=None]chunk:  63%|######3   | 1323/2096 [00:00<00:00, 1957.85it/s, now=None]chunk:  72%|#######2  | 1519/2096 [00:00<00:00, 1925.30it/s, now=None]chunk:  82%|########1 | 1713/2096 [00:00<00:00, 1897.94it/s, now=None]chunk:  91%|######### | 1904/2096 [00:01<00:00, 1894.89it/s, now=None]                                                                      MoviePy - Done.
-Прошло проехало
