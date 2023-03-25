@@ -1,5 +1,4 @@
 import threading
-import time
 import tkinter
 
 import YouTubeMP3
@@ -49,19 +48,17 @@ class App():
 
         try:
             file = open('path.txt', 'r')
-            self.entrypath.insert(0,file.read())
+            self.entrypath.insert(0, file.read())
             file.close()
         except:
             print('Файл path.txt не найден')
-
-
 
         self.frameurl = Frame(self.window)
         self.frameurl.pack(fill=X)
 
         self.labelurl = Label(self.frameurl, text='URL', font=('Consolas', 14))
         self.labelurl.pack(padx=70)
-        #  textvariable
+
         self.entryurl = Entry(self.frameurl, font=('Consolas', 10))
         self.entryurl.pack(ipadx=100)
         # self.entryurl.insert(0, 'https://www.youtube.com/watch?v=o4nfgcI1qk8')
@@ -88,6 +85,9 @@ class App():
         self.startbtn = Button(self.frameconvert, text='Start', font=('Consolas', 14), command=self.Threading)
         self.startbtn.pack(pady=20, padx=width/4)
 
+        self.ytmp3.progressbardwnload = self.progressbardwnload
+        self.ytmp3.progressbarconvert = self.progressbarconvert
+
         self.window.bind_all('<Key>', self._onKeyRelease, '+')
         self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.window.mainloop()
@@ -97,6 +97,7 @@ class App():
         thread.start()
 
     def Start(self):
+        self.startbtn.config(state=tkinter.DISABLED)
         self.progressbardwnload['value'] = 0
         self.progressbarconvert['value'] = 0
         output_path = self.entrypath.get()
@@ -111,15 +112,13 @@ class App():
         self.ytmp3.SetPathAndURL(output_path, url)
 
         def process():
-            self.ytmp3.DownloadAndConvert(self.progressbardwnload, self.progressbarconvert)
-            self.progressbardwnload['value'] = 100
-            self.progressbarconvert['value'] = 100
+            self.ytmp3.DownloadAndConvert()
             print('Прошло проехало')
+            self.startbtn.config(state=tkinter.NORMAL)
+            os.startfile(output_path)
         thread = threading.Thread(target=process)
         print('Пошло поехало')
         thread.start()
-
-        os.startfile(output_path)
 
 
     def _onKeyRelease(self, event):
