@@ -78,23 +78,27 @@ class App():
 
         self.frameconvert = Frame(self.window)
         self.frameconvert.pack(fill=X)
-        #
-        # self.labelconvert = Label(self.frameconvert, text='Converting', font=('Consolas', 14))
-        # self.labelconvert.pack(padx=70)
-        #
-        # self.progressbarconvert = Progressbar(self.frameconvert, length=100, mode='determinate')
-        # self.progressbarconvert.pack(ipadx=30)
 
-        self.startbtn = Button(self.frameconvert, text='Start', font=('Consolas', 14), command=self.Start)
+        self.labelconvert = Label(self.frameconvert, text='Converting', font=('Consolas', 14))
+        self.labelconvert.pack(padx=70)
+
+        self.progressbarconvert = Progressbar(self.frameconvert, length=100, mode='determinate')
+        self.progressbarconvert.pack(ipadx=30)
+
+        self.startbtn = Button(self.frameconvert, text='Start', font=('Consolas', 14), command=self.Threading)
         self.startbtn.pack(pady=20, padx=width/4)
 
         self.window.bind_all('<Key>', self._onKeyRelease, '+')
         self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.window.mainloop()
 
+    def Threading(self):
+        thread = threading.Thread(target=self.Start)
+        thread.start()
+
     def Start(self):
         self.progressbardwnload['value'] = 0
-        # self.progressbarconvert['value'] = 0
+        self.progressbarconvert['value'] = 0
         output_path = self.entrypath.get()
         try:
             file = open('path.txt', 'w')
@@ -106,40 +110,17 @@ class App():
         url = self.entryurl.get()
         self.ytmp3.SetPathAndURL(output_path, url)
 
-        # def temp():
-        #     # self.ytmp3.DownloadAndConvert()
-        #     #threading.Thread(target=self.ytmp3.DownloadAndConvert()).start()
-        #     print('Пошло поехало')
-        #     for i in range(100):
-        #         self.progressbardwnload['value'] = i
-        #         time.sleep(0.05)
-        #     for i in range(100):
-        #         self.progressbarconvert['value'] = i
-        #         time.sleep(0.05)
-        #
-        # threading.Thread(target=self.ytmp3.DownloadAndConvert()).start()
+        def process():
+            self.ytmp3.DownloadAndConvert(self.progressbardwnload, self.progressbarconvert)
+            self.progressbardwnload['value'] = 100
+            self.progressbarconvert['value'] = 100
+            print('Прошло проехало')
+        thread = threading.Thread(target=process)
         print('Пошло поехало')
-        # threading.Thread(target=self.ytmp3.DownloadAndConvert).start()
-        # self.ytmp3.DownloadAndConvert()
-        # self.ytmp3.DownloadAndSaveToMP3(self.progressbardwnload)
-        #threading.Thread(target=self.ytmp3.DownloadAndSaveToMP3(self.progressbardwnload)).start()
-        threading.Thread(target=self.ytmp3.DownloadAndConvert()).start()
+        thread.start()
 
-        print('Прошло проехало')
-
-        # os.startfile(self.ytmp3.output_path_mp3)
         os.startfile(output_path)
-        # os.startfile('C:\\Users\\Vasili4\\Desktop\\1.Для добавки')
-        # print(self.ytmp3.output_path_mp3)
-        # self.progressbardwnload['value'] = 100
-        # self.progressbarconvert['value'] = 100
-        # for i in range(100):
-        #     self.progressbardwnload['value'] = i
-        #     time.sleep(0.05)
-        # for i in range(100):
-        #     self.progressbarconvert['value'] = i
-        #     time.sleep(0.05)
-        # self.ytmp3.DownloadAndConvert()
+
 
     def _onKeyRelease(self, event):
         ctrl = (event.state & 0x4) != 0
