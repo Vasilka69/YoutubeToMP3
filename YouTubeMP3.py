@@ -47,7 +47,7 @@ class YouTubeMP3():
     def ConvertToMP3(self):
         videoclip = VideoFileClip(self.output_mp4_file)
         audioclip = videoclip.audio
-        audioclip.write_audiofile(self.output_mp3_file, logger=self.ConvertationProgressLogger(self.progressbarconvert))
+        audioclip.write_audiofile(self.output_mp3_file, logger=self.ConvertationProgressLogger(self.progressbarconvert), bitrate='3000k')
         audioclip.close()
         videoclip.close()
         self.progressbarconvert['value'] = 100
