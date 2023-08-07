@@ -1,7 +1,6 @@
 from proglog import ProgressBarLogger
 from pytube import YouTube
-import pytube.request
-from moviepy.editor import *
+from moviepy.editor import VideoFileClip
 
 class YouTubeMP3():
     output_path_mp3 = ''
@@ -23,9 +22,15 @@ class YouTubeMP3():
         if self.output_path_mp3 == '' or self.url == '':
             return
 
-        self.DownloadMP4Audio()
+        try:
+            self.DownloadMP4Audio()
+        except Exception as e:
+            raise ValueError()
         print()
-        self.ConvertToMP3()
+        try:
+            self.ConvertToMP3()
+        except Exception as e:
+            raise RuntimeError()
 
         self.output_path_mp3 = ''
         self.output_path_mp4 = ''
@@ -36,7 +41,8 @@ class YouTubeMP3():
 
         yt = YouTube(self.url, on_progress_callback=self.download_progress)
 
-        bestaudiostream = yt.streams.get_highest_resolution() # Выбрать максимум 1080 (уже не надо)
+        bestaudiostream = yt.streams.get_highest_resolution()  # Выбрать максимум 1080 (уже не надо)
+        # bestaudiostream = yt.streams.get_audio_only(subtype='mp3')  # Выбрать максимум 1080 (уже не надо)
         # print(bestaudiostream)
         self.output_mp4_file = bestaudiostream.download(output_path=self.output_path_mp4)
         split = self.output_mp4_file.split('\\')

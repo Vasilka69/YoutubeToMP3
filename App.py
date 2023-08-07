@@ -5,6 +5,7 @@ import YouTubeMP3
 
 from tkinter import *
 from tkinter.ttk import Progressbar
+import tkinter.messagebox
 
 import sys
 import os
@@ -112,16 +113,30 @@ class App():
         self.ytmp3.SetPathAndURL(output_path, url)
 
         def process():
-            self.ytmp3.DownloadAndConvert()
+            try:
+                self.ytmp3.DownloadAndConvert()
+            except ValueError as e:
+                print('Произошла ошибка при скачивании файла')
+                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", "Произошла ошибка при скачивании файла")
+                return
+            except RuntimeError as e:
+                print('Произошла ошибка при конвертации файла')
+                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", "Произошла ошибка при конвертации файла")
+                return
+            except:
+                print('Произошла ошибка при скачивании или конвертации файла')
+                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", "Произошла ошибка при скачивании или конвертации файла")
+                return
+            finally:
+                self.startbtn.config(state=tkinter.NORMAL)
             print('Прошло проехало')
-            self.startbtn.config(state=tkinter.NORMAL)
             os.startfile(output_path)
         thread = threading.Thread(target=process)
         print('Пошло поехало')
         thread.start()
 
-
     def _onKeyRelease(self, event):
+        # tkinter.messagebox.showerror(event.keycode)
         ctrl = (event.state & 0x4) != 0
         if event.keycode == 88 and ctrl and event.keysym.lower() != "x":
             event.widget.event_generate("<<Cut>>")
@@ -132,9 +147,9 @@ class App():
         if event.keycode == 67 and ctrl and event.keysym.lower() != "c":
             event.widget.event_generate("<<Copy>>")
 
+        if event.keycode == 65 and ctrl and event.keysym.lower() != "a":
+            self.entryurl.select_range(0, 'end')
 
     def on_closing(self):
         self.output_log.close()
         self.window.destroy()
-
-
