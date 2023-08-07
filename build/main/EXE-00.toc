@@ -59,7 +59,7 @@
  [],
  False,
  False,
- 1691411013,
+ 1691414593,
  [('runw.exe',
    'c:\\users\\vasili4\\documents\\github\\youtubetomp3\\venv\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
    'EXECUTABLE')])
