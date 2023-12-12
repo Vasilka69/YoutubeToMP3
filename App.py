@@ -116,12 +116,12 @@ class App():
             try:
                 self.ytmp3.DownloadAndConvert()
             except ValueError as e:
-                print('Произошла ошибка при скачивании файла')
-                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", "Произошла ошибка при скачивании файла")
+                print(f"Произошла ошибка при скачивании файла: {str(e)}")
+                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", f"Произошла ошибка при скачивании файла: {str(e)}")
                 return
             except RuntimeError as e:
-                print('Произошла ошибка при конвертации файла')
-                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", "Произошла ошибка при конвертации файла")
+                print(f"Произошла ошибка при скачивании файла: {str(e)}")
+                self.errmessagebox = tkinter.messagebox.showerror("Ошибка", f"Произошла ошибка при конвертации файла: {str(e)}")
                 return
             except:
                 print('Произошла ошибка при скачивании или конвертации файла')

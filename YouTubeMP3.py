@@ -25,12 +25,12 @@ class YouTubeMP3():
         try:
             self.DownloadMP4Audio()
         except Exception as e:
-            raise ValueError()
+            raise ValueError(e)
         print()
         try:
             self.ConvertToMP3()
         except Exception as e:
-            raise RuntimeError()
+            raise RuntimeError(e)
 
         self.output_path_mp3 = ''
         self.output_path_mp4 = ''
